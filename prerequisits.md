@@ -26,4 +26,4 @@ The plugins supplied with the pipeline constitute the minimal requirements to ge
 
 ## Pipeline workflow schematic:
 
-(/images/schematic.pdf)
+images/schematic.pdf
