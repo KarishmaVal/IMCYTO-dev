@@ -25,5 +25,7 @@ The plugins supplied with the pipeline constitute the minimal requirements to ge
 6. Output single cell expression data: Overlay cell mask onto full_stack tiff images to extract single cell information generating a csv file (CellProfiler – segmentation.cppipe)
 
 ## Pipeline workflow schematic:
+ 
+!(IMCYTO-dev/images/schematic.pdf)
 
-images/schematic.pdf
+
