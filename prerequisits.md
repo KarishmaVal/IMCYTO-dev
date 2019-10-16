@@ -23,3 +23,6 @@ The plugins supplied with the pipeline constitute the minimal requirements to ge
 4. Apply pixel classification to the composite cell map: Use composite.tiff to classify pixels as membrane, nuclei or background, and save probability maps as .tiffs (Ilastik)
 5. Generate a single cell mask: Use probability .tiffs and preprocessed full_stack .tiffs for single cell segmentation to generate a cell mask (CellProfiler – segmentation.cppipe)
 6. Output single cell expression data: Overlay cell mask onto full_stack tiff images to extract single cell information generating a csv file (CellProfiler – segmentation.cppipe)
+
+## Pipeline workflow schematic:
+(images/schematic.pdf)
