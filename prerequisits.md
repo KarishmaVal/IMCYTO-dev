@@ -26,7 +26,7 @@ The plugins supplied with the pipeline constitute the minimal requirements to ge
 
 ## Pipeline workflow schematic:
  
-[Workflow schematic](IMCYTO-dev/images/schematic.pdf)
+[Workflow schematic](images/schematic.pdf)
 
-[Example folder structure](IMCYTO-dev/images/example_folder_structure.png)
+[Example folder structure](images/example_folder_structure.png)
 
