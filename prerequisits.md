@@ -6,39 +6,47 @@
 
 ## Introduction:
 
-This is an automated pipeline for preprocessing and segmenting imaging data from Imaging Mass Cytometry to obtain single cell information. 
+This is an automated pipeline for pre-processing and single cell segmentation of imaging data, generated using Imaging Mass Cytometry data but is flexible enough to be applicable to various types of imaging data (eg. confocal). 
 
-This pipeline was written by Harshil Patel and Nourdine Bah at the Francis Crick Institute, using dockers/singularity/nextflow É to package together various image analysis tools É batch processing/parallelised/fast/flexible 
+This pipeline allows input data in the format of mcd, ome.tiff or txt files from which stacks of tiff files are generated for subsequent analysis. The various stages of this pipeline allow the tiff images to be pre-processed, and segmented using multiple CellProfiler .cppipe project files and the pixel-classification software Ilastik. The concept of this stepwise image segmentation combining Ilastik with CellProfiler was based on the analysis pipeline as described by the Bodenmiller group [(Zanotelli & Bodenmiller, Jan 2019)](https://github.com/BodenmillerGroup/ImcSegmentationPipeline/blob/development/documentation/imcsegmentationpipeline_documentation.pdf). 
 
-This pipeline is designed to run on a server/cluster without the need to pre-install any of the software packages. However, to modify/customise the pipeline, one needs to install the [CellProfiler(v3.1.8)](https://cellprofiler.org/ 'CellProfiler') and [Ilastik(v1.3.3)](https://www.ilastik.org/ 'Ilastik') softwares on a local machine (see **Pipeline adaptations** section).  
-
-The concept of the stepwise image segmentation using a pixel classifier (Ilastik) to generate a membrane probability map combined with CellProfiler modules for subsequent single cell mask generation, is based on the analysis pipeline as described by the Bodenmiller group [(Zanotelli & Bodenmiller, Jan 2019)](https://github.com/BodenmillerGroup/ImcSegmentationPipeline/blob/development/documentation/imcsegmentationpipeline_documentation.pdf). 
 The plugins supplied with the pipeline constitute the minimal requirements to generate a single cell mask. A more refined and comprehensive pipeline will be uploaded in due course.
 
-## Pipeline summary:
+This pipeline was automated by Harshil Patel and Nourdine Bah at the Francis Crick Institute, using dockers/singularity/nextflow to package together various image analysis tools batch processing/parallelised/fast/flexible 
+This pipeline is designed to run on a server/cluster without the need to pre-install any of the software packages. However, to modify/customise the pipeline, one needs to install the [CellProfiler(v3.1.8)](https://cellprofiler.org/ 'CellProfiler') and [Ilastik(v1.3.3)](https://www.ilastik.org/ 'Ilastik') softwares on a local machine (see **Pipeline Adaptations** section).  
 
-1. Generate .tiff files from image acquisition output: Open .mcd or .txt files and contained ROIs and save individual .tiff files for channels with names matching those defined in a metadata.csv file into corresponding folders – full_stack for all channels being analysed in single cell expression analysis; ilastik_stack for channels being used to segment cells (IMCTools)
-2. Preprocess full_stack images: Apply preprocessing filters to all .tiff files in the full_stack subfolder and save (CellProfiler – full_stack_preprocessing.cppipe)
-3. Generate a cell map from ilastik_stack images: Merge .tiff images from the ilastik_stack subfolder to obtain an RGB image of cell nuclei and membranes and save as a composite.tiff (CellProfiler – ilastik_stack_preprocessing.cppipe)
-4. Apply pixel classification to the composite cell map: Use composite.tiff to classify pixels as membrane, nuclei or background, and save probability maps as .tiffs (Ilastik)
-5. Generate a single cell mask: Use probability .tiffs and preprocessed full_stack .tiffs for single cell segmentation to generate a cell mask (CellProfiler – segmentation.cppipe)
-6. Output single cell expression data: Overlay cell mask onto full_stack tiff images to extract single cell information generating a csv file (CellProfiler – segmentation.cppipe)
+## Pipeline Summary:
 
-## Pipeline workflow schematic:
+1. **(IMCTools)** Generate .tiff files from image acquisition output: Open .mcd, .ome.tiff or .txt files and contained ROIs and save individual .tiff files for channels with names matching those defined in a metadata.csv file into corresponding folders – full_stack for all channels being analysed in single cell expression analysis; ilastik_stack for channels being used to generate the cell mask.
+
+2. **(CellProfiler – full_stack_preprocessing.cppipe)** Preprocess full_stack images: Apply preprocessing filters to all .tiff files in the full_stack folder and save.
+
+3. **(CellProfiler – ilastik_stack_preprocessing.cppipe)** Generate a composite image representive of all cells plasma membranes: Merge select .tiff images from the ilastik_stack subfolder to create a composite image of cell nuclei and plasma membranes and save as a composite.tiff.
+
+4. **(Ilastik)** Apply pixel classification to the composite cell map: Use composite.tiff to classify pixels as nuclei, membrane or background, and save probability maps as .tiffs.
+*Alternative option to skip ilastik pixel classification and use composite.tiff instead of probabilty .tiff in subequent steps. This approach might be preferred if CellProfiler modules alone are deemed sufficient to achieve a reliable segmentation mask.*
+
+5. **(CellProfiler – segmentation.cppipe)** Generate a single cell mask: Use probability .tiffs and pre-processed full_stack .tiffs for single cell segmentation to generate a cell mask. 
+
+6. **(CellProfiler – segmentation.cppipe)** Output single cell expression data: Overlay cell mask onto full_stack .tiff images to extract single cell information generating a csv file.
+
+## Pipeline Workflow Schematic:
  
 [Workflow schematic](images/schematic.pdf)
 
-## Pipeline prerequisites: 
-- .mcd or .txt data file generated by the Hyperion without any spaces in the file name. Associated antibody panel should contain metal and antibody information in the form of ‘metal_antibody’.
-- metadata.csv file containing your antibody panel to identify which corresponding .tiff files are to be put into full_stack and ilastik_stack folders (example shown in schematic). File should contain only three columns titled ‘metal’, ‘full_stack’ and ‘ilastik_stack’. ‘metal’ column should contain all the metals used in your antibody panel. ‘full_stack’ and ‘ilastik_stack’ columns should be used to identify which metals to include using boolean labelling (1 = use or 0 = don’t use).
-- ‘NamesAndTypes’ module in all CellProfiler cppipe files (see 'Pipeline adaptations') will need to be edited to match your antibody panel and desired markers to identify cell nuclei and membranes. Other recommended changes to the pipeline are outlined ‘Pipeline details’ section.
+## Pipeline Prerequisites: 
+- **.mcd**, **.ome.tiff** or **.txt** data file, generated without any spaces in the file name. Associated antibody panel should contain metal and antibody information in the form of ‘metal_antibody’ (eg. 89Y_CD45).
 
-## Pipeline adaptations:
+- **metadata.csv** file containing your antibody panel to identify which corresponding .tiff files are to be put into full_stack and ilastik_stack folders (example shown in **Pipeline Workflow Sschematic**). File should contain only three columns titled ‘metal’, ‘full_stack’ and ‘ilastik_stack’. ‘metal’ column should contain all the metals used in your antibody panel. ‘full_stack’ and ‘ilastik_stack’ columns should be used to identify which metals to include in boolean labelling (1 = use or 0 = don’t use).
+
+- **‘NamesAndTypes’** module in all CellProfiler .cppipe files (see **Pipeline Adaptations**) will need to be edited to match your antibody panel and desired markers to identify cell nuclei and membranes. Other recommended changes to the pipeline are outlined **Pipeline Details** section.
+
+## Pipeline Adaptations:
 - To view and edit the .cppipe files, download CellProfiler (v3.1.8) as well as the custom plugins created by Bodenmiller group (found here: https://github.com/BodenmillerGroup/ImcPluginsCP). Your own custom plugins can also be used. Open CellProfiler>Preferences and change ‘CellProfiler plugins directory’ path to where you stored the custom plugins. When saving, make to sure export the file as a .cppipe and to name the files as either ‘full_stack_preprocessing’, ‘ilastik_stack_preprocessing’ or ‘segmentation’ in line with the schematic above. 
 - If you use any custom modules in any of the CellProfiler .cppipe files, make sure to add the python script into the ‘plugins/cp_plugins’ directory before running the pipeline (described below – ‘Running the pipeline’).
-The pipeline is packaged with a pre-trained Ilastik pixel classifer but to train a classifier using your own dataset download Ilastik (v1.3.3), you will need to input desired RGB images in .tiff format and use ‘membrane’, ‘nuclei’ and ‘background’ labels to train your classifer. The input image should be the output of ‘ilastik_stack_preprocessing’. When selecting export settings select source as ‘Probabilities’, transpose axis order to ‘cyx’ and export output file as ‘tiff sequence’ to generate probability maps. The Ilastik file should be titled ‘ilastik_training_params.ilp’.- 
+- The pipeline is packaged with a pre-trained Ilastik pixel classifer but to train a classifier using your own dataset download Ilastik (v1.3.3), you will need to input desired RGB images in .tiff format and use ‘membrane’, ‘nuclei’ and ‘background’ labels to train your classifer. The input image should be the output of ‘ilastik_stack_preprocessing’. When selecting export settings select source as ‘Probabilities’, transpose axis order to ‘cyx’ and export output file as ‘tiff sequence’ to generate probability maps. The Ilastik file should be titled ‘ilastik_training_params.ilp’.- 
 
-## Pipeline details:
+## Pipeline Details:
 Each step of the pipeline as depicted in the schematic is broken down and explained below, with the inputs and outputs highlighted.
 
 ### 1.IMCTools
