@@ -32,7 +32,7 @@ This pipeline is designed to run on a server/cluster without the need to pre-ins
 
 ## Pipeline Workflow Schematic:
  
-![Workflow schematic](images/schematic.pdf)
+![Workflow schematic](images/schematic.png)
 
 ## Pipeline Prerequisites: 
 
@@ -107,6 +107,8 @@ Each step of the pipeline as depicted in the schematic is broken down and explai
 
 To run the pipeline, you will need to login into cluster … 
 The .mcd file and metadata.csv should be put together in a folder titled ‘mcd’. A ‘plugins’ folder should contain all three CellProfiler files (i.e. full_stack_preprocessing.cppipe, ilastik_stack_preprocessing.cppipe, segmentation.cppipe), ilastik (ilastik_training_params.ilp) parameters file as well as any extra custom CellProfiler modules (.py) in ‘cp_plugins’ folder. The run_imcyto script should be put along with these folders. Once you are ready to run the pipeline excute the sh run.imcyto command, from within the main experiment folder.
+
+Where to place spillover conpensation csv.
 
 **Example folder structure:**
 
