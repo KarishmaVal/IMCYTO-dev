@@ -103,6 +103,12 @@ Each step of the pipeline as depicted in the schematic is broken down and explai
 
 **Output:** .tiff image titled ‘Cells_mask’ and ‘Cells.csv’ file containing single cell data.
 
+**Segmentation example**
+
+![Segmentation example](images/segmentation_example.png)
+
+Example of the steps in segmentation.cppipe, with nuclei image input from full_stack_preprocessing and membrane probability input from ilastik, to generate the resulting cell mask (mask overlay image created in [HistoCAT](http://www.bodenmillerlab.com/research-2/histocat/ 'HistoCAT') with nuclei and membrane channels coloured in red and green respectively).
+
 ## Running the pipeline:
 
 To run the pipeline, you will need to login into cluster … 
@@ -139,6 +145,8 @@ Example image of what the output folder structure looks like?
 
 - Additionally, [QuPath](https://qupath.github.io/ 'QuPath'), can also be used for visualisation with the added benefit of viewing all channels at once in a mini viewer panel.
 
+- [HistoCAT](http://www.bodenmillerlab.com/research-2/histocat/ 'HistoCAT') software developed by the Bodenmiller lab enables visualisation of images and contains various analysis tools including PhenoGraph, tSNE, PCA and Neighbourhood analysis.
+
 ## Hyperlinks:
 - Zanotelli & Bodenmiller, Jan 2019: https://github.com/BodenmillerGroup/ImcSegmentationPipeline/blob/development/documentation/imcsegmentationpipeline_documentation.pdf 
 - CellProfiler: https://cellprofiler.org/
@@ -148,4 +156,5 @@ Example image of what the output folder structure looks like?
 - Fiji-ImageJ: https://imagej.net/Fiji 
 - IMCTools: https://github.com/BodenmillerGroup/imctools
 - QuPath: https://qupath.github.io/ 
+- HistoCAT: http://www.bodenmillerlab.com/research-2/histocat/
 
