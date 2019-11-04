@@ -124,7 +124,11 @@ Where to place spillover conpensation csv?
 
 Pull latest version from Github, docker containers, online/offline, run pipeline... 
 
-## Pipeline reporting:
+## Pipeline Outputs:
+
+
+
+## Pipeline Reporting:
 
 Once your pipeline has run successfully it will generate a range of reports alongside the pipeline outputs …
 Example image of what the output folder structure looks like?
