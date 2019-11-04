@@ -105,16 +105,16 @@ Each step of the pipeline as depicted in the schematic is broken down and explai
 
 **Segmentation example**
 
-![Segmentation example](images/segmentation_example.png)
+![Segmentation example](images/segmentation_example3.png)
 
 Example of the steps in segmentation.cppipe, with nuclei image input from full_stack_preprocessing and membrane probability input from ilastik, to generate the resulting cell mask (mask overlay image created in [HistoCAT](http://www.bodenmillerlab.com/research-2/histocat/ 'HistoCAT') with nuclei and membrane channels coloured in red and green respectively).
 
 ## Running the pipeline:
 
 To run the pipeline, you will need to login into cluster … 
-The .mcd file and metadata.csv should be put together in a folder titled ‘mcd’. A ‘plugins’ folder should contain all three CellProfiler files (i.e. full_stack_preprocessing.cppipe, ilastik_stack_preprocessing.cppipe, segmentation.cppipe), ilastik (ilastik_training_params.ilp) parameters file as well as any extra custom CellProfiler modules (.py) in ‘cp_plugins’ folder. The run_imcyto script should be put along with these folders. Once you are ready to run the pipeline excute the sh run.imcyto command, from within the main experiment folder.
+The .mcd file and metadata.csv should be put together in a folder titled ‘mcd’. A ‘plugins’ folder should contain all three CellProfiler files (i.e. full_stack_preprocessing.cppipe, ilastik_stack_preprocessing.cppipe, segmentation.cppipe), ilastik (ilastik_training_params.ilp) parameters file as well as any extra custom CellProfiler module scripts (.py) in ‘cp_plugins’ folder. The run_imcyto script should be put along with these folders. Once you are ready to run the pipeline excute the sh run.imcyto command, from within the main experiment folder.
 
-Where to place spillover conpensation csv.
+Where to place spillover conpensation csv?
 
 **Example folder structure:**
 
