@@ -2,7 +2,7 @@
 
 # Pipeline Documentation
 
-**---------- Pipeline Execution and how the pipeline runs sections need to be explained! ----------**
+**---------- Pipeline Execution section on how the pipeline runs needs to be explained! ----------**
 
 
 ## Introduction:
@@ -13,7 +13,7 @@ This pipeline allows input data in the format of mcd, ome.tiff or txt files from
 
 The plugins supplied with the pipeline constitute the minimal requirements to generate a single cell mask. A more refined and comprehensive pipeline will be uploaded in due course.
 
-This pipeline was automated by Harshil Patel and Nourdine Bah at the Francis Crick Institute, using dockers/singularity/nextflow to package together various image analysis tools batch processing/parallelised/fast/flexible 
+This pipeline was automated by Harshil Patel and Nourdine Bah at the Francis Crick Institute, using dockers/singularity/nextflow to package together various image analysis tools, allowing batch processing, parallelised, and fast analysis (see **Pipeline Execution** for more details.
 This pipeline is designed to run on a server/cluster without the need to pre-install any of the software packages. However, to modify/customise the pipeline, one needs to install the [CellProfiler(v3.1.8)](https://cellprofiler.org/ 'CellProfiler') and [Ilastik(v1.3.3)](https://www.ilastik.org/ 'Ilastik') softwares on a local machine (see **Pipeline Adaptations** section).  
 
 ## Pipeline Summary:
@@ -112,17 +112,15 @@ Example of the steps in segmentation.cppipe, with nuclei image input from full_s
 
 ## Pipeline Execution:
 
-To run the pipeline, you will need to login into cluster … 
+To run the pipeline, you will need to login into cluster … or download from github/nextflow directly if no cluster?
 
 The .mcd file and metadata.csv should be put together in a folder titled ‘mcd’ (if spillover compensation.tiff is available, this will also be placed in the mcd folder and added as an argument to the run.sh script). A ‘plugins’ folder should contain all three CellProfiler files (i.e. full_stack_preprocessing.cppipe, ilastik_stack_preprocessing.cppipe, segmentation.cppipe), ilastik (ilastik_training_params.ilp) parameters file as well as any extra custom CellProfiler module scripts (.py) in ‘cp_plugins’ folder. The run_imcyto script should be put along with these folders. Once you are ready to run the pipeline excute the sh run.imcyto command, from within the main experiment folder.
+
+Explain how the pipeline runs ... pull latest version from Github, docker containers, online/offline, run pipeline... 
 
 **Example folder structure:**
 
 ![Example folder structure](images/example_folder_structure.png)
-
-## How the pipeline runs: = better name
-
-Pull latest version from Github, docker containers, online/offline, run pipeline... 
 
 ## Pipeline Outputs:
 
