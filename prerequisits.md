@@ -2,7 +2,8 @@
 
 # Pipeline Documentation
 
--> HAVE ANOTHER DOCUMENT AS OUTPUTS.MD FOR THE OUTPUT FILES (CELLMASK, CSV) ETC WITH PIPELINE REPORTS AT THE END AS OTHER OUTPUTS (CAN COPY THE EXPLANATION FROM HARSHIL'S OTHER PROJECTS IN GITHUB)?
+**---------- Pipeline Execution and how the pipeline runs sections need to be explained! ----------**
+
 
 ## Introduction:
 
@@ -46,13 +47,13 @@ This pipeline is designed to run on a server/cluster without the need to pre-ins
 
 - To view and edit the .cppipe files, download [CellProfiler(v3.1.8)](https://cellprofiler.org/ 'CellProfiler') as well as the custom plugins created by Bodenmiller group - smoothmultichannel.py and measureobjectintensitymultichannel.py (found [here](https://github.com/BodenmillerGroup/ImcPluginsCP 'CellProfiler Bodenmiller custom plugins')). Your own custom plugins can also be used. Open CellProfiler>Preferences and change ‘CellProfiler plugins directory’ path to where you stored the custom plugins. When saving the edited .cppipe files, make to sure export the file as a .cppipe and to name the files as either ‘full_stack_preprocessing’, ‘ilastik_stack_preprocessing’ or ‘segmentation’ in line with the schematic above. 
 
-- If you use any custom modules in any of the CellProfiler .cppipe files, make sure to add the python script into the ‘plugins/cp_plugins’ directory before running the pipeline (described below – **Running the Pipeline**).
+- If you use any custom modules in any of the CellProfiler .cppipe files, make sure to add the python script into the ‘plugins/cp_plugins’ directory before running the pipeline (described below – **Pipeline Execution**).
 
 - The pipeline is packaged with a pre-trained Ilastik pixel classifer but to train a classifier using your own dataset download [Ilastik(v1.3.3)](https://www.ilastik.org/ 'Ilastik'), you will need to input desired composite RGB images in .tiff format and use ‘membrane’, ‘nuclei’ and ‘background’ labels to train your classifer. The input image should be the output of ‘ilastik_stack_preprocessing’. When selecting export settings select source as ‘Probabilities’, transpose axis order to ‘cyx’ and export output file as ‘tiff sequence’ to generate probability maps. The Ilastik file should be titled ‘ilastik_training_params.ilp’.
 
 - Adding to the flexiblity of this pipeline we have included a --skip_ilastik flag in the run.sh script as an optional argument that can be included to skip the Ilastik pixel classification step and proceed via a CellProfiler only pipeline. In this case, no --ilastik_training_ilp is provided in the run.sh script and images that have been preprocessed through ‘ilastik_stack_preprocessing.cppipe’ will be directly passed to the 'segmentation.cppipe' bypassing Ilastik. This approach might be preferred if CellProfiler alone is deemed sufficient to achieve a reliable segmentation mask.
 
-- Additionally, --compensation_tiff is an optional argument to the pipeline, included if the user wishes to apply a predetermined spillover compensation function or illumination function to images during one or both of the ilastik_stack and full_stack preprocessing steps. If a compensation .tiff file is provided, it should be saved in the mcd folder along with the images to be processed and metadata (described below – **Running the Pipeline**). Examples of compensation might include: illumination correction to microscopy images, spillover compensation for imaging mass cytometry data. 
+- Additionally, --compensation_tiff is an optional argument to the pipeline, included if the user wishes to apply a predetermined spillover compensation function or illumination function to images during one or both of the ilastik_stack and full_stack preprocessing steps. If a compensation .tiff file is provided, it should be saved in the mcd folder along with the images to be processed and metadata (described below – **Pipeline Execution**). Examples of compensation might include: illumination correction to microscopy images, spillover compensation for imaging mass cytometry data. 
 
 ## Pipeline Details:
 
@@ -109,18 +110,17 @@ Each step of the pipeline as depicted in the schematic is broken down and explai
 
 Example of the steps in segmentation.cppipe, with nuclei image input from full_stack_preprocessing and membrane probability input from ilastik, to generate the resulting cell mask (mask overlay image created in [HistoCAT](http://www.bodenmillerlab.com/research-2/histocat/ 'HistoCAT') with nuclei and membrane channels coloured in red and green respectively).
 
-## Running the pipeline:
+## Pipeline Execution:
 
 To run the pipeline, you will need to login into cluster … 
-The .mcd file and metadata.csv should be put together in a folder titled ‘mcd’. A ‘plugins’ folder should contain all three CellProfiler files (i.e. full_stack_preprocessing.cppipe, ilastik_stack_preprocessing.cppipe, segmentation.cppipe), ilastik (ilastik_training_params.ilp) parameters file as well as any extra custom CellProfiler module scripts (.py) in ‘cp_plugins’ folder. The run_imcyto script should be put along with these folders. Once you are ready to run the pipeline excute the sh run.imcyto command, from within the main experiment folder.
 
-Where to place spillover compensation csv?
+The .mcd file and metadata.csv should be put together in a folder titled ‘mcd’ (if spillover compensation.tiff is available, this will also be placed in the mcd folder and added as an argument to the run.sh script). A ‘plugins’ folder should contain all three CellProfiler files (i.e. full_stack_preprocessing.cppipe, ilastik_stack_preprocessing.cppipe, segmentation.cppipe), ilastik (ilastik_training_params.ilp) parameters file as well as any extra custom CellProfiler module scripts (.py) in ‘cp_plugins’ folder. The run_imcyto script should be put along with these folders. Once you are ready to run the pipeline excute the sh run.imcyto command, from within the main experiment folder.
 
 **Example folder structure:**
 
 ![Example folder structure](images/example_folder_structure.png)
 
-## How the pipeline runs:
+## How the pipeline runs: - better name
 
 Pull latest version from Github, docker containers, online/offline, run pipeline... 
 
