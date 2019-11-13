@@ -131,9 +131,13 @@ The work folder is a working directory created by the pipeline for it to run cor
 
 ![Example output folder structure](images/example_output_folder_structure.png)
 
-**Example cell mask and cells.csv outputs**
+**Example cell mask output:**
 
 ![Example cell mask](images/Cells_mask.png)
+
+(Cell mask overlay image created in [HistoCAT](http://www.bodenmillerlab.com/research-2/histocat/ 'HistoCAT') with nuclei and membrane channels coloured in red and green respectively)
+
+**Example csv containing each object and measured mean intensities output:**
 
 ![Example cell csv](images/Cells.csv.png)
 
