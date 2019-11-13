@@ -131,6 +131,12 @@ The work folder is a working directory created by the pipeline for it to run cor
 
 ![Example output folder structure](images/example_output_folder_structure.png)
 
+**Example cell mask and cells.csv outputs**
+
+![Example cell mask](images/Cells_mask.png)
+
+![Example cell csv](images/Cells.csv.png)
+
 ## Pipeline Reporting:
 
 Nextflow provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to trouble-shoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
