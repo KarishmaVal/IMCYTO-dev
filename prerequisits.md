@@ -4,6 +4,14 @@
 
 **---------- Pipeline Execution section on how the pipeline runs needs to be explained! ----------**
 
+**MULTI-INPUT**
+**when using .tiff or .txt make sure the ROI number is in the filename**
+Common errors:
+./run_imcyto.sh: line 18: unexpected EOF while looking for matching `''
+./run_imcyto.sh: line 22: syntax error: unexpected end of file
+this error typically occurs when due to mismatching quotation marks - use ' instead of ’.
+
+
 ## Introduction:
 
 This is an automated pipeline for pre-processing and single cell segmentation of imaging data, generated using Imaging Mass Cytometry data but is flexible enough to be applicable to various types of imaging data (eg. confocal). 
