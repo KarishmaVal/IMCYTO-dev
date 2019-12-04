@@ -40,7 +40,7 @@ This pipeline is designed to run on a server/cluster without the need to pre-ins
 
 ## Pipeline Workflow Schematic:
  
-![Workflow schematic](images/schematic.png)
+![Workflow schematic](images/schematic3.png)
 
 ## Pipeline Prerequisites: 
 
@@ -141,13 +141,13 @@ The work folder is a working directory created by the pipeline for it to run cor
 
 **Example cell mask output:**
 
-![Example cell mask](images/Cells_mask.png)
+![Example cell mask](images/cellmaskoverlay_tumourvsnormalcells_labelled.png)
 
 (Cell mask overlay image created in [HistoCAT](http://www.bodenmillerlab.com/research-2/histocat/ 'HistoCAT') with nuclei and membrane channels coloured in red and green respectively)
 
 **Example csv containing each object and measured mean intensities output:**
 
-![Example cell csv](images/Cells.csv.png)
+![Example cell csv](images/Cells.csv2.png)
 
 ## Pipeline Reporting:
 
